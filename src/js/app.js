@@ -1,23 +1,14 @@
-﻿export default class Team {
+﻿export default class ErrorRepository {
     constructor(){
-      this.members = new Set();
+        this.errors = new Map([
+            [1, 'Error1']
+        ])
     }
-    add(name) {  
-      this.members.forEach((item) => {
-        if (item === name) {
-          throw new Error('Объект уже существует в команде');
+    translate(code){
+        if(!this.errors.has(code)){
+            throw new Error('Unknow error');
+        }else {
+            return this.errors.get(code);
         }
-      });
-      this.members.add(name);
-    };
-  
-    addAll(...name){
-      name.forEach((item)=>{
-        this.add(item);
-      });
     }
-  
-    toArray(){
-      return Array.from(this.members);
-    }
-  }
+}

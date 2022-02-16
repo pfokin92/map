@@ -1,28 +1,12 @@
-﻿
-import Team from "../app";
-
-const team = new Team();
+﻿import ErrorRepository from '../app';
 
 
-test('Add char first time', ()=>{
-    const team = new Team();
-    team.add('swordsman')
-    expect(team.toArray()).toEqual(['swordsman'])
-});
+test(`getExistsError`, ()=>{
+    const errorRepository = new ErrorRepository();
+    expect(errorRepository.translate(1)).toBe(`Error1`);
+})
 
-test('Add char second time', ()=>{
-    const team = new Team();
-    team.add('swordsman');
-    expect(team.add('swordsman')).toThrowError(new Error('Объект уже существует в команде'))
-});
-
-test('Add all chars', ()=>{
-    const team = new Team();
-    team.addAll('swordsman','deamon','bowman')
-    expect(team.toArray()).toEqual(['swordsman','deamon','bowman'])
-});
-
-test('Add all chars double', ()=>{
-    const team = new Team();
-    expect(team.addAll('swordsman','deamon','bowman','swordsman')).toThrowError(new Error('Объект уже существует в команде'))
-});
+test(`getNoExistsError`, ()=>{
+    const errorRepository = new ErrorRepository();
+    expect(()=>errorRepository.translate(3)).toThrow()
+})
